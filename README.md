@@ -3,7 +3,9 @@ Yarn workspace tools.  Detects which projects in a workspace have changed given 
 
 # install
 
+```
 yarn install yarn-workspace-tools
+```
 
 # run
 
