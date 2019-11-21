@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import {
   changedFiles,
   gitRoot,
@@ -7,8 +9,8 @@ import {
 } from "./tools";
 
 function log(msg: string) {
-  if(process.argv.find(x => x ==="-v")) {
-    console.error(msg)
+  if (process.argv.find(x => x === "-v")) {
+    console.error(msg);
   }
 }
 
@@ -75,9 +77,7 @@ async function detect() {
         if (dependentProjects.find(x => x === dirty)) {
           found = true;
           // if its impliciated in the tree, its dirty too
-          log(
-            `  -> Marking ${project} dirty because it depends on ${dirty}`
-          );
+          log(`  -> Marking ${project} dirty because it depends on ${dirty}`);
 
           dirtyProjects.add(project);
         }
@@ -86,14 +86,14 @@ async function detect() {
     // repeat with all not already marked projects
   } while (found);
 
-  const result: {[name: string]: {name: string, path: string}} = {}
+  const result: { [name: string]: { name: string; path: string } } = {};
 
-  for(let p of dirtyProjects) {
+  for (let p of dirtyProjects) {
     for (let project in workspace) {
-      const wp = workspace[project]
-      if(p === project) {
-        result[p] = { name: p, path: wp.location }
-        break
+      const wp = workspace[project];
+      if (p === project) {
+        result[p] = { name: p, path: wp.location };
+        break;
       }
     }
   }
