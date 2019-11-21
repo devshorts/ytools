@@ -36,3 +36,19 @@ Returns json of the format:
 ```
 
 Of workspace packages that have changed against master
+
+# Configuration
+
+Configure files that always trigger everything to build (like root package.json, etc) with:
+
+
+```
+// .ytools.js
+
+module.exports = {
+    // regular expressions to match
+    requiredFiles: [".*"]
+}
+```
+
+By default `*.json`, `*.lock` at the root will always trigger a full workspace result

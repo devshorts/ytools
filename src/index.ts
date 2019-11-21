@@ -7,6 +7,7 @@ import {
   npmList,
   yarnWorkspaceInfo
 } from "./tools";
+import * as fs from "fs";
 
 function log(msg: string) {
   if (process.argv.find(x => x === "-v")) {
@@ -14,10 +15,49 @@ function log(msg: string) {
   }
 }
 
+function complete(result: {
+  [p: string]: { name: string; path: string };
+}): never {
+  console.log(JSON.stringify(result));
+  return process.exit(0);
+}
+
 async function detect() {
   const workspace = yarnWorkspaceInfo();
 
   const changed = changedFiles();
+
+  const cwd = process.cwd();
+
+  const configPath = `${cwd}/.ytools.js`;
+
+  const result: { [name: string]: { name: string; path: string } } = {};
+
+  let config = {
+    requiredFiles: [".*\.json", ".*\.lock"]
+  };
+
+  if (fs.existsSync(configPath)) {
+    log("Found config path of " + configPath);
+    config = require(configPath);
+  }
+
+  const alwaysBuildFiles = changed.filter(x =>
+    config.requiredFiles.find(y => x.match(y))
+  );
+  if (alwaysBuildFiles) {
+    log(
+      `Detected always build file changes, assuming whole workspace is dirty: \n${alwaysBuildFiles.join(
+        "\n"
+      )}`
+    );
+
+    for (let project in workspace) {
+      const wp = workspace[project];
+      result[project] = { name: project, path: wp.location };
+    }
+    return complete(result);
+  }
 
   const dirtyProjects = new Set<string>();
 
@@ -86,8 +126,6 @@ async function detect() {
     // repeat with all not already marked projects
   } while (found);
 
-  const result: { [name: string]: { name: string; path: string } } = {};
-
   for (let p of dirtyProjects) {
     for (let project in workspace) {
       const wp = workspace[project];
@@ -97,7 +135,8 @@ async function detect() {
       }
     }
   }
-  console.log(JSON.stringify(result));
+
+  return complete(result);
 }
 
 detect();
