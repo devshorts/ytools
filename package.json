@@ -1,7 +1,8 @@
 {
   "name": "yarn-workspace-tools",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "description": "Detects workspace changes from git staged files",
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^24.0.18",
@@ -12,15 +13,13 @@
     "ts-node": "^8.5.2",
     "typescript": "^3.7.2"
   },
-  "licenses": [
-    {
-      "type": "MIT"
-    }
-  ],
   "scripts": {
     "compile": "npx tsc -b",
     "watch": "npx tsc -b -w"
   },
+  "files": [
+    "dist/"
+  ],
   "bin": {
     "ytools": "./dist/index.js"
   }
