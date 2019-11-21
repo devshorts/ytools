@@ -1,0 +1,17 @@
+{
+  "name": "nohoist",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "hoist1": "1.0.0",
+    "hoist2": "1.0.0",
+    "aws-sdk": "^2.538.0"
+  },
+  "workspaces": {
+    "nohoist": [
+      "**"
+    ]
+  }
+}

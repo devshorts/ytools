@@ -1,0 +1,27 @@
+{
+  "name": "yarn-workspace-tools",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.9",
+    "jest": "^24.8.0",
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.1.0",
+    "ts-node": "^8.5.2",
+    "typescript": "^3.7.2"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "scripts": {
+    "compile": "npx tsc -b",
+    "watch": "npx tsc -b -w"
+  },
+  "bin": {
+    "ytools": "./dist/index.js"
+  }
+}

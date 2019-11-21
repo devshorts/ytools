@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="ES6" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_3" />
+  <component name="SbtLocalSettings">
+    <option name="modificationStamps">
+      <map>
+        <entry key="$USER_HOME$/Downloads/scala-client 2" value="1478159538000" />
+        <entry key="$PROJECT_DIR$/../../curalate/christian-jmh" value="1485372062000" />
+        <entry key="$PROJECT_DIR$/../../curalate/client-api" value="1485639252000" />
+        <entry key="$PROJECT_DIR$/../../curalate/clients" value="1485639353000" />
+        <entry key="$PROJECT_DIR$/../../curalate/curacmds" value="1486076437000" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-aws" value="1484962154000" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-configuration" value="1485291196000" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-global" value="1485194430000" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-integration-testing" value="1485810797000" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-logging" value="1485053786000" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-monitoring" value="1478631730000" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-ops-service" value="1486581198000" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-quartz2" value="1490223646000" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-rdb" value="1487115306000" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-redis" value="1486491311000" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-tasks-service" value="1488232983000" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-twitter" value="1489447585000" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-utils" value="1484877084000" />
+        <entry key="$PROJECT_DIR$/../../curalate/feature-extraction" value="1487028150000" />
+        <entry key="$PROJECT_DIR$/../../curalate/finagle-tools" value="1478915031000" />
+        <entry key="$PROJECT_DIR$/../../curalate/finatra" value="1478723684000" />
+        <entry key="$PROJECT_DIR$/../../curalate/finatra-http-seed" value="1476125161000" />
+        <entry key="$PROJECT_DIR$/../../curalate/finatra-http-seed2" value="1478721761000" />
+        <entry key="$PROJECT_DIR$/../../curalate/guice-util" value="1487351544000" />
+        <entry key="$PROJECT_DIR$/../../curalate/http-ast" value="1489194692000" />
+        <entry key="$PROJECT_DIR$/../../curalate/json-jackson" value="1479772752000" />
+        <entry key="$PROJECT_DIR$/../../curalate/media-api" value="1489443854000" />
+        <entry key="$PROJECT_DIR$/../../curalate/pinsights_proxy" value="1487719786000" />
+        <entry key="$PROJECT_DIR$/../../curalate/propagating-execution-context" value="1484002254000" />
+        <entry key="$PROJECT_DIR$/../../curalate/recommendations" value="1488838187000" />
+        <entry key="$PROJECT_DIR$/../../curalate/sbt-jmh-seed" value="1485371588000" />
+        <entry key="$PROJECT_DIR$/../../curalate/sbt-plugins" value="1484247578000" />
+        <entry key="$PROJECT_DIR$/../../curalate/sbt-tests/sbtexample" value="1478106163000" />
+        <entry key="$PROJECT_DIR$/../../curalate/sbt.g8" value="1478629245000" />
+        <entry key="$PROJECT_DIR$/../../curalate/service.g8" value="1485634481000" />
+        <entry key="$PROJECT_DIR$/../../curalate/serviceg8temp" value="1489451775000" />
+        <entry key="$PROJECT_DIR$/../../curalate/tasks" value="1480443101000" />
+        <entry key="$PROJECT_DIR$/../../curalate/test" value="1485638576000" />
+        <entry key="$PROJECT_DIR$/../../curalate/test-service" value="1485998911000" />
+        <entry key="$PROJECT_DIR$/../../curalate/thrift-consumer-example" value="1478652491000" />
+        <entry key="$PROJECT_DIR$/../../curalate/thrift-utils" value="1478727576000" />
+        <entry key="$PROJECT_DIR$/../../curalate/twitter-utils" value="1484002412000" />
+        <entry key="$PROJECT_DIR$/../../curalate/zipkin-config-service" value="1484005821000" />
+        <entry key="$PROJECT_DIR$/../../external/sbt-doge" value="1489443942000" />
+        <entry key="$PROJECT_DIR$/../../external/scrooge" value="2923257334000" />
+        <entry key="$PROJECT_DIR$/../../paradox/scala-tiny-types" value="1459353873000" />
+        <entry key="$PROJECT_DIR$/../../paradox/similarity" value="1480813080000" />
+        <entry key="$PROJECT_DIR$/../../paradox/urinals" value="1480631079000" />
+      </map>
+    </option>
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$/../../curalate/augmented-fresh" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/benchmark" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curacmds" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-aws" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-data-processors" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-ecs-scaling-lambda" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-elasticsearch" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-logging" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-monitoring" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-network-api-proxy" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-network-data-warehouse-service" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-network-proxy" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-products" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-rdb" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-resources-lambda" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-rights" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-semantic-tagging" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-tasks-service" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-taxonomy-service" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-twitter" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-utils" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/curalate-web-gateway" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/domains/accounts" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/forks/scala-ts" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/http-driver" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/jmxmp-agent" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/json-jackson" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/lambda.g8" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/mining/curalate-mining" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/mining/curalate-social-miners" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/pinsights-entity-service" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/queue-batcher" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/scala-typescript" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/scinstagram" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../curalate/tax-nlp-test" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../paradox/aetr" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../paradox/carlyle" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../paradox/doggo" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../paradox/ecsv" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../paradox/finatra-extensions" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../paradox/google" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../paradox/interviews" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../paradox/qb" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../paradox/rdb" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../paradox/request-replay/scala" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../paradox/scala-global" value="PREVIEW" />
+        <entry key="$USER_HOME$/stripe/interview/cassovary" value="PREVIEW" />
+        <entry key="$USER_HOME$/stripe/interview/cats" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+  <component name="ScalaSbtSettings">
+    <option name="customLauncherEnabled" value="true" />
+    <option name="customLauncherPath" value="/usr/local/Cellar/sbt@0.13/0.13.16/libexec/bin/sbt-launch.jar" />
+    <option name="customVMPath" />
+  </component>
+  <component name="ThriftCompiler">
+    <compilers />
+  </component>
+</project>
