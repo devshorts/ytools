@@ -3,6 +3,7 @@
   "version": "1.0.2",
   "main": "./dist/index.js",
   "description": "Detects workspace changes from git staged files",
+  "repository": "https://github.com/devshorts/ytools",
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^24.0.18",
