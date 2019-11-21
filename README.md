@@ -15,7 +15,7 @@ ytools
 
 To add logging (to `stderr`) use the `-v` flag.  
 
-To pipe directly into pretty formatted json pipe into ![jq](https://stedolan.github.io/jq/):
+To pipe directly into pretty formatted json pipe into [jq](https://stedolan.github.io/jq/):
 
 ```
 ytools -v | jq
