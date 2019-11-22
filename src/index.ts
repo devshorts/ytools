@@ -96,6 +96,7 @@ async function detect() {
 
         // if we found it, we've consumed that file so remove it
         changed = changed.filter(x => x != changedFile);
+        log("  -> " +changedFile + " is in " + project.location);
         break;
       }
     }
