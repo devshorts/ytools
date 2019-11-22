@@ -34,7 +34,7 @@ async function detect() {
   const result: { [name: string]: { name: string; path: string } } = {};
 
   let config = {
-    requiredFiles: [".*\.json", ".*\.lock"]
+    requiredFiles: [/^[a-z0-9]+\.(json|lock)$/i]
   };
 
   if (fs.existsSync(configPath)) {
