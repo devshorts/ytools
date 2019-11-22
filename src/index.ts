@@ -5,6 +5,7 @@ import {
   gitRoot,
   NpmDep,
   npmList,
+  Project,
   yarnWorkspaceInfo
 } from "./tools";
 import * as fs from "fs";
@@ -25,7 +26,7 @@ function complete(result: {
 async function detect() {
   const workspace = yarnWorkspaceInfo();
 
-  const changed = changedFiles();
+  let changed = changedFiles();
 
   const cwd = process.cwd();
 
@@ -45,7 +46,7 @@ async function detect() {
   const alwaysBuildFiles = changed.filter(x =>
     config.requiredFiles.find(y => x.match(y))
   );
-  if (alwaysBuildFiles) {
+  if (alwaysBuildFiles.length > 0) {
     log(
       `Detected always build file changes, assuming whole workspace is dirty: \n${alwaysBuildFiles.join(
         "\n"
@@ -65,6 +66,8 @@ async function detect() {
 
   const root = gitRoot();
 
+  const workspaceArray: (Project & { name: string })[] = [];
+
   await Promise.all(
     Object.keys(workspace).map(async project => {
       const workspaceInfo = workspace[project];
@@ -72,18 +75,31 @@ async function detect() {
 
       log(`processing ${project}...`);
 
+      workspaceArray.push({ name: project, ...workspaceInfo });
+
       // get all the dependencies of this project
       const deps = await npmList(`${root}/${location}`);
 
       allDependencies.set(project, deps);
-
-      for (let changedFile of changed) {
-        if (changedFile.indexOf(location) === 0) {
-          dirtyProjects.add(project);
-        }
-      }
     })
   );
+
+  // go by the longest location first
+  workspaceArray.sort((a, b) => b.location.length - b.location.length);
+
+  for (let project of workspaceArray) {
+    for (let changedFile of changed) {
+      // find the changed file in the deepest location first
+      if (changedFile.indexOf(project.location) === 0) {
+        log(changedFile + "-" + project.location);
+        dirtyProjects.add(project.name);
+
+        // if we found it, we've consumed that file so remove it
+        changed = changed.filter(x => x != changedFile);
+        break;
+      }
+    }
+  }
 
   // no files in the repo are related to a project
   if (dirtyProjects.size === 0) {
@@ -120,6 +136,9 @@ async function detect() {
           log(`  -> Marking ${project} dirty because it depends on ${dirty}`);
 
           dirtyProjects.add(project);
+
+          // we've already added this project, no need to add it twice
+          break
         }
       }
     }
