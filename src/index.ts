@@ -85,19 +85,18 @@ async function detect() {
   );
 
   // go by the longest location first
-  workspaceArray.sort((a, b) => b.location.length - b.location.length);
+  workspaceArray.sort((a, b) => b.location.length - a.location.length);
 
+  log("File locations:");
   for (let project of workspaceArray) {
     for (let changedFile of changed) {
       // find the changed file in the deepest location first
       if (changedFile.indexOf(project.location) === 0) {
-        log(changedFile + "-" + project.location);
         dirtyProjects.add(project.name);
 
         // if we found it, we've consumed that file so remove it
         changed = changed.filter(x => x != changedFile);
-        log("  -> " +changedFile + " is in " + project.location);
-        break;
+        log(`  -> ${project.location}: ${changedFile}`);
       }
     }
   }
@@ -108,7 +107,11 @@ async function detect() {
     process.exit(0);
   }
 
-  log(`Dirty projects: ${Array.from(dirtyProjects.values()).join(", ")}`);
+  log(
+    `Dirty projects by default: ${Array.from(dirtyProjects.values()).join(
+      ", "
+    )}`
+  );
 
   // find dirty projects
   let found = false;
@@ -139,7 +142,7 @@ async function detect() {
           dirtyProjects.add(project);
 
           // we've already added this project, no need to add it twice
-          break
+          break;
         }
       }
     }
