@@ -1,5 +1,7 @@
 # ytools
-Yarn workspace tools.  Detects which projects in a workspace have changed given staged files from master.  
+Yarn workspace tools.  Detects which projects in a workspace have changed given staged files from master.  Why?  If you have a large monorepo running all your tests/linting/etc on every project for each change is wasteful.  Better to leverage the tools that yarn and npm already expose (such as listing your workspace metadata and getting your dependencies) to detect which workspace packages have changed (along with their transitive dependencies) and only run your tooling on that.
+
+`ytools` exposes exactly this glue.  You can use the resulting json from `stdout` (logging is to `stderr`) to conditionally run tests, linting, any other phases you want.  You can easily format the result to pipe to `wsrun` which accepts a repeated list of `-p` flags indicating which packages to run against.  
 
 # install
 
