@@ -54,3 +54,24 @@ module.exports = {
 ```
 
 By default `*.json`, `*.lock` at the root will always trigger a full workspace result
+
+# Example
+
+```
+#!/usr/bin/env ruby
+
+require 'json'
+
+`yarn install --pure-lockfile --prefer-offline`
+
+wsrun_args = JSON.parse(`npx ytools -v`).keys.map { |x| '-p ' + x }.join(' ')
+
+# compile everything no matter what
+`yarn run compile`
+
+# run lint phases for dirty workspace folders
+`npx wsrun #{wsrun_args} --fast-exit --exclude-missing --parallel --concurrency 4 lint`
+
+# run test phases for dirty workspace folders
+`npx wsrun #{wsrun_args} --fast-exit --exclude-missing --parallel --concurrency 4 test`
+```
