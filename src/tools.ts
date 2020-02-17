@@ -64,9 +64,9 @@ export async function npmList(path: string): Promise<NpmDep> {
   return JSON.parse(data) as NpmDep;
 }
 
-export function yarnWorkspaceInfo(): Workspace {
+export function yarnWorkspaceInfo(cwd?: string): Workspace {
   return JSON.parse(
-    JSON.parse(run("yarn workspaces info --json"))["data"]
+    JSON.parse(run("yarn workspaces info --json", cwd))["data"]
   ) as Workspace;
 }
 

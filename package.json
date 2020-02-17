@@ -6,7 +6,7 @@
   "repository": "https://github.com/devshorts/ytools",
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^24.0.18",
+    "@types/jest": "^25.1.2",
     "@types/node": "^12.7.9",
     "jest": "^24.8.0",
     "prettier": "^1.19.1",
@@ -16,7 +16,8 @@
   },
   "scripts": {
     "compile": "npx tsc -b",
-    "watch": "npx tsc -b -w"
+    "watch": "npx tsc -b -w",
+    "prepublish": "yarn compile"
   },
   "files": [
     "dist/"
