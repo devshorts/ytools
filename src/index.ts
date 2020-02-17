@@ -8,6 +8,7 @@ import {
   Project,
   yarnWorkspaceInfo
 } from "./tools";
+import Bottleneck from "bottleneck";
 import * as fs from "fs";
 
 function log(msg: string) {
@@ -68,6 +69,12 @@ async function detect() {
 
   const workspaceArray: (Project & { name: string })[] = [];
 
+  // limit the number of npm processes we spin up
+  const limiter = new Bottleneck({
+    maxConcurrent: 5
+  });
+
+  // for all folders in the workspace find their dependencies
   await Promise.all(
     Object.keys(workspace).map(async project => {
       const workspaceInfo = workspace[project];
@@ -78,7 +85,7 @@ async function detect() {
       workspaceArray.push({ name: project, ...workspaceInfo });
 
       // get all the dependencies of this project
-      const deps = await npmList(`${root}/${location}`);
+      const deps = await limiter.schedule(() => npmList(`${root}/${location}`));
 
       allDependencies.set(project, deps);
     })

@@ -24,5 +24,8 @@
   ],
   "bin": {
     "ytools": "./dist/index.js"
+  },
+  "dependencies": {
+    "bottleneck": "^2.19.5"
   }
 }
