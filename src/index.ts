@@ -25,24 +25,24 @@ function complete(result: {
 }
 
 async function detect() {
-  const workspace = yarnWorkspaceInfo();
-
-  let changed = changedFiles();
-
+  let config = {
+    requiredFiles: [/^[a-z0-9]+\.(json|lock)$/i],
+    root: gitRoot()
+  };
   const cwd = process.cwd();
 
   const configPath = `${cwd}/.ytools.js`;
 
-  const result: { [name: string]: { name: string; path: string } } = {};
-
-  let config = {
-    requiredFiles: [/^[a-z0-9]+\.(json|lock)$/i]
-  };
-
   if (fs.existsSync(configPath)) {
     log("Found config path of " + configPath);
-    config = require(configPath);
+    config = Object.assign({}, config, require(configPath));
   }
+
+  const workspace = yarnWorkspaceInfo(config.root);
+
+  let changed = changedFiles();
+
+  const result: { [name: string]: { name: string; path: string } } = {};
 
   const alwaysBuildFiles = changed.filter(x =>
     config.requiredFiles.find(y => x.match(y))
@@ -65,7 +65,7 @@ async function detect() {
 
   const allDependencies = new Map<string, NpmDep>();
 
-  const root = gitRoot();
+  const root = config.root ?? gitRoot();
 
   const workspaceArray: (Project & { name: string })[] = [];
 
