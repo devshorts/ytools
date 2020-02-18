@@ -36,8 +36,8 @@ export async function asyncRun(command: string, cwd?: string): Promise<string> {
     s.on("close", code => {
       result(stdout.join(""));
     });
-    s.on("error", () => {
-      reject();
+    s.on("error", (e) => {
+      reject(e);
     });
   });
 }

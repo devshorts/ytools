@@ -75,3 +75,13 @@ wsrun_args = JSON.parse(`npx ytools -v`).keys.map { |x| '-p ' + x }.join(' ')
 # run test phases for dirty workspace folders
 `npx wsrun #{wsrun_args} --fast-exit --exclude-missing --parallel --concurrency 4 test`
 ```
+
+# Testing
+
+```
+yarn compile
+cd samples
+git init
+yarn install
+../dist/index.js
+```

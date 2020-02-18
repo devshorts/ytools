@@ -85,7 +85,12 @@ async function detect() {
       workspaceArray.push({ name: project, ...workspaceInfo });
 
       // get all the dependencies of this project
-      const deps = await limiter.schedule(() => npmList(`${root}/${location}`));
+      const deps = await limiter.schedule(() =>
+        npmList(`${root}/${location}`).catch(e => {
+          console.error(`Failed processing ${root}/${location}`, e);
+          throw e;
+        })
+      );
 
       allDependencies.set(project, deps);
     })
