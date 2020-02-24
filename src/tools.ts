@@ -4,13 +4,19 @@ import { spawn } from "child_process";
 export function run(command: string, cwd?: string): string {
   const [c, ...args] = command.split(" ");
   const result = child_process.spawnSync(c, args, {
-    encoding: "utf-8",
+    encoding: "UTF8",
     env: process.env,
     stdio: "pipe",
     cwd
   });
 
-  return result.stdout.toString().trim();
+  return result.stdout
+    .toString()
+    .trim()
+    .replace(
+      /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
+      ""
+    );
 }
 
 export async function asyncRun(command: string, cwd?: string): Promise<string> {
@@ -36,7 +42,7 @@ export async function asyncRun(command: string, cwd?: string): Promise<string> {
     s.on("close", code => {
       result(stdout.join(""));
     });
-    s.on("error", (e) => {
+    s.on("error", e => {
       reject(e);
     });
   });
@@ -65,9 +71,7 @@ export async function npmList(path: string): Promise<NpmDep> {
 }
 
 export function yarnWorkspaceInfo(cwd?: string): Workspace {
-  return JSON.parse(
-    JSON.parse(run("yarn workspaces info --json", cwd))["data"]
-  ) as Workspace;
+  return JSON.parse(run("yarn -s workspaces info json", cwd)) as Workspace;
 }
 
 export function changedFiles(): string[] {

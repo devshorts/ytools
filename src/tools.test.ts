@@ -1,4 +1,4 @@
-import { yarnWorkspaceInfo } from "./tools";
+import {run, yarnWorkspaceInfo } from "./tools";
 import * as path from "path";
 
 test("parses yarn", async () => {
