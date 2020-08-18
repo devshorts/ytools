@@ -16,6 +16,19 @@ yarn install yarn-workspace-tools
 ytools
 ```
 
+CLI options
+```
+$ ytools -h
+Usage: ytools [options]
+
+Options:
+  -v, --verbose                    Write verbose to stderr
+  -t, --tag <tag>                  Compare to tag (master, HEAD~1, sha, etc) (default: "master")
+  -c, --config <config>            Path to config. If not specified will try and find one at .ytools.js (default: "/Users/akropp/src/copper/copper/packages/app/.ytools.js")
+  -p, --parallelism <parallelism>  Parallelism factor (number of projects to process at once) (default: 5)
+  -h, --help                       display help for command
+```
+
 To add logging (to `stderr`) use the `-v` flag.
 
 To pipe directly into pretty formatted json pipe into [jq](https://stedolan.github.io/jq/):
