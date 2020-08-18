@@ -74,8 +74,8 @@ export function yarnWorkspaceInfo(cwd?: string): Workspace {
   return JSON.parse(run("yarn -s workspaces info json", cwd)) as Workspace;
 }
 
-export function changedFiles(): string[] {
-  return run("git diff --name-only master").split("\n");
+export function changedFiles(branch: string): string[] {
+  return run(`git diff --name-only ${branch}`).split("\n");
 }
 
 export function gitRoot(): string {

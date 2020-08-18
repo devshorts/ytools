@@ -11,7 +11,7 @@
     "jest": "^24.8.0",
     "prettier": "^1.19.1",
     "ts-jest": "^24.1.0",
-    "ts-node": "^8.5.2",
+    "ts-node": "^8.10.2",
     "typescript": "^3.7.2"
   },
   "scripts": {
@@ -26,6 +26,7 @@
     "ytools": "./dist/index.js"
   },
   "dependencies": {
-    "bottleneck": "^2.19.5"
+    "bottleneck": "^2.19.5",
+    "commander": "^6.0.0"
   }
 }

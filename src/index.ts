@@ -11,8 +11,26 @@ import {
 import Bottleneck from "bottleneck";
 import * as fs from "fs";
 
+const program = require('commander');
+
+interface Args {
+  verbose: boolean;
+  tag: string;
+  config: string
+  parallelism: number
+}
+
+program
+  .option('-v, --verbose', 'Write verbose to stderr')
+  .option('-t, --tag <tag>', 'Compare to tag (master, HEAD~1, sha, etc)', 'master')
+  .option('-c, --config <config>', 'Path to config. If not specified will try and find one at .ytools.js', `${process.cwd()}/.ytools.js`)
+  .option('-p, --parallelism <parallelism>', 'Parallelism factor (number of projects to process at once)', 5)
+  .parse(process.argv);
+
+const opts = program.opts() as Args;
+
 function log(msg: string) {
-  if (process.argv.find(x => x === "-v")) {
+  if (opts.verbose) {
     console.error(msg);
   }
 }
@@ -29,9 +47,8 @@ async function detect() {
     requiredFiles: [/^[a-z0-9]+\.(json|lock)$/i],
     root: gitRoot()
   };
-  const cwd = process.cwd();
 
-  const configPath = `${cwd}/.ytools.js`;
+  const configPath = opts.config;
 
   if (fs.existsSync(configPath)) {
     log("Found config path of " + configPath);
@@ -40,7 +57,9 @@ async function detect() {
 
   const workspace = yarnWorkspaceInfo(config.root);
 
-  let changed = changedFiles();
+  log(`Checking changes files from current to ${opts.tag}`)
+
+  let changed = changedFiles(opts.tag);
 
   const result: { [name: string]: { name: string; path: string } } = {};
 
@@ -71,7 +90,7 @@ async function detect() {
 
   // limit the number of npm processes we spin up
   const limiter = new Bottleneck({
-    maxConcurrent: 5
+    maxConcurrent: opts.parallelism
   });
 
   // for all folders in the workspace find their dependencies
@@ -80,17 +99,17 @@ async function detect() {
       const workspaceInfo = workspace[project];
       const location = workspaceInfo.location;
 
-      log(`processing ${project}...`);
-
       workspaceArray.push({ name: project, ...workspaceInfo });
 
       // get all the dependencies of this project
-      const deps = await limiter.schedule(() =>
-        npmList(`${root}/${location}`).catch(e => {
+      const deps = await limiter.schedule(() => {
+        log(`processing ${project}...`);
+
+        return npmList(`${root}/${location}`).catch(e => {
           console.error(`Failed processing ${root}/${location}`, e);
           throw e;
-        })
-      );
+        });
+      });
 
       allDependencies.set(project, deps);
     })
