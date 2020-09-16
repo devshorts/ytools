@@ -2,9 +2,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/node:12.18.2
+      - image: 'circleci/node:latest'
     steps:
       - checkout
-      - run:
-          name: build
-          command: yarn build
+      - run: echo 'hello world'
