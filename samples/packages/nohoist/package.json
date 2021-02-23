@@ -5,9 +5,9 @@
   "private": true,
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.538.0",
     "hoist1": "1.0.0",
-    "hoist2": "1.0.0",
-    "aws-sdk": "^2.538.0"
+    "hoist2": "1.0.0"
   },
   "workspaces": {
     "nohoist": [
