@@ -50,6 +50,7 @@ export async function asyncRun(command: string, cwd?: string): Promise<string> {
 
 export interface Project {
   location: string;
+  name: string
   workspaceDependencies: string[];
   mismatchedWorkspaceDependencies: [];
 }
@@ -71,7 +72,15 @@ export async function npmList(path: string): Promise<NpmDep> {
 }
 
 export function yarnWorkspaceInfo(cwd?: string): Workspace {
-  return JSON.parse(run("yarn -s workspaces info json", cwd)) as Workspace;
+  const projects = run("yarn workspaces list --json -v", cwd).split('\n').map(x => JSON.parse(x) as Project)
+
+  const workspace: Workspace = {}
+
+  for (const project of projects) {
+    workspace[project.name] = project
+  }
+
+  return workspace
 }
 
 export function changedFiles(branch: string): string[] {

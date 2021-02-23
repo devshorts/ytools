@@ -7,17 +7,20 @@ test("parses yarn", async () => {
     hoist1: {
       location: "packages/hoist1",
       workspaceDependencies: ["hoist2"],
+      name: 'hoist1',
       mismatchedWorkspaceDependencies: []
     },
     hoist2: {
       location: "packages/hoist2",
       workspaceDependencies: [],
+      name: 'hoist2',
       mismatchedWorkspaceDependencies: []
     },
     nohoist: {
       location: "packages/nohoist",
       workspaceDependencies: ["hoist1", "hoist2"],
-      mismatchedWorkspaceDependencies: []
+      mismatchedWorkspaceDependencies: [],
+      name: 'nohoist',
     }
   });
 });
