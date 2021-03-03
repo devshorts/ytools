@@ -1,4 +1,4 @@
-import {run, yarnWorkspaceInfo } from "./tools";
+import { run, yarnWorkspaceInfo } from "./tools";
 import * as path from "path";
 
 test("parses yarn", async () => {
@@ -6,21 +6,21 @@ test("parses yarn", async () => {
   expect(data).toMatchObject({
     hoist1: {
       location: "packages/hoist1",
-      workspaceDependencies: ["hoist2"],
-      name: 'hoist1',
+      workspaceDependencies: ["packages/hoist2"],
+      name: "hoist1",
       mismatchedWorkspaceDependencies: []
     },
     hoist2: {
       location: "packages/hoist2",
       workspaceDependencies: [],
-      name: 'hoist2',
+      name: "hoist2",
       mismatchedWorkspaceDependencies: []
     },
     nohoist: {
       location: "packages/nohoist",
-      workspaceDependencies: ["hoist1", "hoist2"],
+      workspaceDependencies: ["packages/hoist1", "packages/hoist2"],
       mismatchedWorkspaceDependencies: [],
-      name: 'nohoist',
+      name: "nohoist"
     }
   });
 });
