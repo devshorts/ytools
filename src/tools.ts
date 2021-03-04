@@ -91,6 +91,10 @@ export function changedFiles(branch: string): string[] {
   return run(`git diff --name-only ${branch}`).split("\n");
 }
 
+export function filesInCurrent(): string[] {
+  return run(`git show --pretty="" --name-only`).split("\n");
+}
+
 export function gitRoot(): string {
   return run("git rev-parse --show-toplevel");
 }

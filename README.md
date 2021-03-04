@@ -24,7 +24,9 @@ Usage: ytools [options]
 Options:
   -v, --verbose                    Write verbose to stderr
   -t, --tag <tag>                  Compare to tag (master, HEAD~1, sha, etc) (default: "master")
-  -c, --config <config>            Path to config. If not specified will try and find one at .ytools.js
+  -c, --onlyCurrent                Only use files in current commit (no diff). Takes precedence over -t flag
+  -c, --config <config>            Path to config. If not specified will try and find one at .ytools.js (default:
+                                   ".ytools.js")
   -p, --parallelism <parallelism>  Parallelism factor (number of projects to process at once) (default: 5)
   -h, --help                       display help for command
 ```

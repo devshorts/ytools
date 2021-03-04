@@ -2,6 +2,7 @@
 
 import {
   changedFiles,
+  filesInCurrent,
   gitRoot,
   NpmDep,
   npmList,
@@ -11,20 +12,37 @@ import {
 import Bottleneck from "bottleneck";
 import * as fs from "fs";
 
-const program = require('commander');
+const program = require("commander");
 
 interface Args {
   verbose: boolean;
   tag: string;
-  config: string
-  parallelism: number
+  config: string;
+  parallelism: number;
+  onlyCurrent: boolean;
 }
 
 program
-  .option('-v, --verbose', 'Write verbose to stderr')
-  .option('-t, --tag <tag>', 'Compare to tag (master, HEAD~1, sha, etc)', 'master')
-  .option('-c, --config <config>', 'Path to config. If not specified will try and find one at .ytools.js', `${process.cwd()}/.ytools.js`)
-  .option('-p, --parallelism <parallelism>', 'Parallelism factor (number of projects to process at once)', 5)
+  .option("-v, --verbose", "Write verbose to stderr")
+  .option(
+    "-t, --tag <tag>",
+    "Compare to tag (master, HEAD~1, sha, etc)",
+    "master"
+  )
+  .option(
+    "-c, --onlyCurrent",
+    "Only use files in current commit (no diff). Takes precedence over -t flag"
+  )
+  .option(
+    "-c, --config <config>",
+    "Path to config. If not specified will try and find one at .ytools.js",
+    `${process.cwd()}/.ytools.js`
+  )
+  .option(
+    "-p, --parallelism <parallelism>",
+    "Parallelism factor (number of projects to process at once)",
+    5
+  )
   .parse(process.argv);
 
 const opts = program.opts() as Args;
@@ -57,9 +75,9 @@ async function detect() {
 
   const workspace = yarnWorkspaceInfo(config.root);
 
-  log(`Checking changes files from current to ${opts.tag}`)
+  log(`Checking changes files from current to ${opts.tag}`);
 
-  let changed = changedFiles(opts.tag);
+  let changed = opts.onlyCurrent ? filesInCurrent() : changedFiles(opts.tag);
 
   const result: { [name: string]: { name: string; path: string } } = {};
 
