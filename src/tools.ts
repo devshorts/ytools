@@ -1,12 +1,13 @@
 import * as child_process from "child_process";
 import { spawn } from "child_process";
 
-export function run(command: string, cwd?: string): string {
-  const [c, ...args] = command.split(" ");
+export function run(command: string | string[], cwd?: string): string {
+  const [c, ...args] = Array.isArray(command) ? command : command.split(" ");
   const result = child_process.spawnSync(c, args, {
     encoding: "UTF8",
     env: process.env,
     stdio: "pipe",
+    shell: true,
     cwd
   });
 
@@ -92,7 +93,7 @@ export function changedFiles(branch: string): string[] {
 }
 
 export function filesInCurrent(): string[] {
-  return run(`git show --pretty="" --name-only`).split("\n");
+  return run(["git", "show", '--pretty=""', "--name-only"]).split("\n");
 }
 
 export function gitRoot(): string {

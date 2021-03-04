@@ -117,7 +117,7 @@ async function detect() {
       const workspaceInfo = workspace[project];
       const location = workspaceInfo.location;
 
-      workspaceArray.push({ name: project, ...workspaceInfo });
+      workspaceArray.push({ ...workspaceInfo, name: project });
 
       // get all the dependencies of this project
       const deps = await limiter.schedule(() => {
