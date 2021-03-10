@@ -3,10 +3,12 @@
 import {
   changedFiles,
   filesInCurrent,
+  filesInStaged,
   gitRoot,
   NpmDep,
   npmList,
   Project,
+  run,
   yarnWorkspaceInfo
 } from "./tools";
 import Bottleneck from "bottleneck";
@@ -19,8 +21,10 @@ interface Args {
   tag: string;
   config: string;
   parallelism: number;
-  onlyCurrent: boolean;
+  staged: boolean;
   noTransitive: boolean;
+  currentCommit: boolean;
+  listCommand: string;
 }
 
 program
@@ -31,9 +35,11 @@ program
     "master"
   )
   .option(
-    "-c, --onlyCurrent",
-    "Only use currently staged files (files added with git add). Takes precedence over -t flag"
+    "--staged",
+    "Only use currently staged files (files added with git add)"
   )
+  .option("--listCommand", "Command to execute to get set of changed files")
+  .option("--currentCommit", "Only use files in the current commit")
   .option("--noTransitive", "Dont follow transitive dependencies")
   .option(
     "-c, --config <config>",
@@ -62,6 +68,22 @@ function complete(result: {
   return process.exit(0);
 }
 
+function getChanged(flags: Args): string[] {
+  if (flags.listCommand) {
+    return run(flags.listCommand).split("\n");
+  }
+
+  if (flags.currentCommit) {
+    return filesInCurrent();
+  }
+
+  if (flags.staged) {
+    return filesInStaged();
+  }
+
+  return changedFiles(flags.tag);
+}
+
 async function detect() {
   let config = {
     requiredFiles: [/^[a-z0-9]+\.(json|lock)$/i],
@@ -79,7 +101,7 @@ async function detect() {
 
   log(`Checking changes files from current to ${opts.tag}`);
 
-  let changed = opts.onlyCurrent ? filesInCurrent() : changedFiles(opts.tag);
+  let changed = getChanged(opts);
 
   const result: { [name: string]: { name: string; path: string } } = {};
 

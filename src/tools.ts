@@ -92,8 +92,12 @@ export function changedFiles(branch: string): string[] {
   return run(`git diff --name-only ${branch}`).split("\n");
 }
 
-export function filesInCurrent(): string[] {
+export function filesInStaged(): string[] {
   return run(`git diff --name-only --cached`).split("\n");
+}
+
+export function filesInCurrent(): string[] {
+  return run(["git", "show", '--pretty=""', "--name-only"]).split("\n");
 }
 
 export function gitRoot(): string {
