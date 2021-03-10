@@ -20,6 +20,7 @@ interface Args {
   config: string;
   parallelism: number;
   onlyCurrent: boolean;
+  noTransitive: boolean;
 }
 
 program
@@ -31,8 +32,9 @@ program
   )
   .option(
     "-c, --onlyCurrent",
-    "Only use files in current commit (no diff). Takes precedence over -t flag"
+    "Only use currently staged files (files added with git add). Takes precedence over -t flag"
   )
+  .option("--noTransitive", "Dont follow transitive dependencies")
   .option(
     "-c, --config <config>",
     "Path to config. If not specified will try and find one at .ytools.js",
@@ -119,17 +121,19 @@ async function detect() {
 
       workspaceArray.push({ ...workspaceInfo, name: project });
 
-      // get all the dependencies of this project
-      const deps = await limiter.schedule(() => {
-        log(`processing ${project}...`);
+      if (!opts.noTransitive) {
+        // get all the dependencies of this project
+        const deps = await limiter.schedule(() => {
+          log(`processing ${project}...`);
 
-        return npmList(`${root}/${location}`).catch(e => {
-          console.error(`Failed processing ${root}/${location}`, e);
-          throw e;
+          return npmList(`${root}/${location}`).catch(e => {
+            console.error(`Failed processing ${root}/${location}`, e);
+            throw e;
+          });
         });
-      });
 
-      allDependencies.set(project, deps);
+        allDependencies.set(project, deps);
+      }
     })
   );
 
