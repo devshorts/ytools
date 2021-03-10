@@ -93,7 +93,7 @@ export function changedFiles(branch: string): string[] {
 }
 
 export function filesInCurrent(): string[] {
-  return run(["git", "show", '--pretty=""', "--name-only"]).split("\n");
+  return run(`git diff --name-only --cached`).split("\n");
 }
 
 export function gitRoot(): string {
