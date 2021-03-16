@@ -1,4 +1,4 @@
-import { run, yarnWorkspaceInfo } from "./tools";
+import { resolveDependencies, yarnWorkspaceInfo } from "./tools";
 import * as path from "path";
 
 test("parses yarn", async () => {
@@ -24,3 +24,13 @@ test("parses yarn", async () => {
     }
   });
 });
+
+test("builds dependencies", async () => {
+  const data = yarnWorkspaceInfo(path.join(process.cwd(), "samples"));
+
+  const {allDependencies} = resolveDependencies(data, false)
+
+  expect(allDependencies.get('hoist2')!.dependencies.sort()).toEqual(['hoist1', 'nohoist'].sort())
+});
+
+

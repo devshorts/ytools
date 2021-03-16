@@ -62,9 +62,7 @@ export interface Workspace {
 
 export interface NpmDep {
   name: string;
-  dependencies: {
-    [p: string]: {};
-  };
+  dependencies: string[]
 }
 
 export async function npmList(path: string): Promise<NpmDep> {
@@ -102,4 +100,34 @@ export function filesInCurrent(): string[] {
 
 export function gitRoot(): string {
   return run("git rev-parse --show-toplevel");
+}
+
+
+export function resolveDependencies(workspace: Workspace, noTransitive: boolean) {
+  const allDependencies = new Map<string, NpmDep>();
+
+  const workspaceArray: (Project & { name: string })[] = [];
+
+  // for all folders in the workspace find their dependencies
+  Object.keys(workspace).map(project => {
+    const workspaceInfo = workspace[project];
+
+    workspaceArray.push({...workspaceInfo, name: project});
+
+    if (!noTransitive) {
+      allDependencies.set(project, mapDependencies(workspace, workspaceInfo));
+    }
+  })
+
+  return {allDependencies, workspaceArray};
+}
+
+function mapDependencies(workspace: Workspace, project: Project): NpmDep {
+  return {
+    name: project.name,
+    dependencies: Object.keys(workspace).filter(k => {
+      const current = workspace[k]
+      return current.workspaceDependencies.includes(project.location)
+    }).map(k => workspace[k].name)
+  }
 }

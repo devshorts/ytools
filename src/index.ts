@@ -8,7 +8,8 @@ import {
   NpmDep,
   npmList,
   Project,
-  run,
+  resolveDependencies,
+  run, Workspace,
   yarnWorkspaceInfo
 } from "./tools";
 import Bottleneck from "bottleneck";
@@ -84,6 +85,7 @@ function getChanged(flags: Args): string[] {
   return changedFiles(flags.tag);
 }
 
+
 async function detect() {
   let config = {
     requiredFiles: [/^[a-z0-9]+\.(json|lock)$/i],
@@ -124,40 +126,7 @@ async function detect() {
 
   const dirtyProjects = new Set<string>();
 
-  const allDependencies = new Map<string, NpmDep>();
-
-  const root = config.root ?? gitRoot();
-
-  const workspaceArray: (Project & { name: string })[] = [];
-
-  // limit the number of npm processes we spin up
-  const limiter = new Bottleneck({
-    maxConcurrent: opts.parallelism
-  });
-
-  // for all folders in the workspace find their dependencies
-  await Promise.all(
-    Object.keys(workspace).map(async project => {
-      const workspaceInfo = workspace[project];
-      const location = workspaceInfo.location;
-
-      workspaceArray.push({ ...workspaceInfo, name: project });
-
-      if (!opts.noTransitive) {
-        // get all the dependencies of this project
-        const deps = await limiter.schedule(() => {
-          log(`processing ${project}...`);
-
-          return npmList(`${root}/${location}`).catch(e => {
-            console.error(`Failed processing ${root}/${location}`, e);
-            throw e;
-          });
-        });
-
-        allDependencies.set(project, deps);
-      }
-    })
-  );
+  const {allDependencies, workspaceArray} = await resolveDependencies(workspace, opts.noTransitive);
 
   // go by the longest location first
   workspaceArray.sort((a, b) => b.location.length - a.location.length);
@@ -205,13 +174,13 @@ async function detect() {
         continue;
       }
 
-      const dependentProjects = Object.keys(deps.dependencies);
+      const dependentProjects = deps.dependencies;
 
       // for all dirty projects, see if this project's dependencies are involved
       for (let dirty of dirtyProjects) {
         if (dependentProjects.find(x => x === dirty)) {
           found = true;
-          // if its impliciated in the tree, its dirty too
+          // if its implicated in the tree, its dirty too
           log(`  -> Marking ${project} dirty because it depends on ${dirty}`);
 
           dirtyProjects.add(project);
@@ -236,5 +205,6 @@ async function detect() {
 
   return complete(result);
 }
+
 
 detect();
