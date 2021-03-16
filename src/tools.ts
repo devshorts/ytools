@@ -127,7 +127,7 @@ function mapDependencies(workspace: Workspace, project: Project): NpmDep {
     name: project.name,
     dependencies: Object.keys(workspace).filter(k => {
       const current = workspace[k]
-      return current.workspaceDependencies.includes(project.location)
+      return project.workspaceDependencies.includes(current.location)
     }).map(k => workspace[k].name)
   }
 }

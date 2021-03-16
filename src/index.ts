@@ -1,18 +1,6 @@
 #!/usr/bin/env node
 
-import {
-  changedFiles,
-  filesInCurrent,
-  filesInStaged,
-  gitRoot,
-  NpmDep,
-  npmList,
-  Project,
-  resolveDependencies,
-  run, Workspace,
-  yarnWorkspaceInfo
-} from "./tools";
-import Bottleneck from "bottleneck";
+import { changedFiles, filesInCurrent, filesInStaged, gitRoot, resolveDependencies, run, yarnWorkspaceInfo } from "./tools";
 import * as fs from "fs";
 
 const program = require("commander");
@@ -126,7 +114,7 @@ async function detect() {
 
   const dirtyProjects = new Set<string>();
 
-  const {allDependencies, workspaceArray} = await resolveDependencies(workspace, opts.noTransitive);
+  const {allDependencies, workspaceArray} = await resolveDependencies(workspace, opts.noTransitive  === undefined ? false : opts.noTransitive);
 
   // go by the longest location first
   workspaceArray.sort((a, b) => b.location.length - a.location.length);

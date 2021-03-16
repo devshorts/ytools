@@ -30,7 +30,7 @@ test("builds dependencies", async () => {
 
   const {allDependencies} = resolveDependencies(data, false)
 
-  expect(allDependencies.get('hoist2')!.dependencies.sort()).toEqual(['hoist1', 'nohoist'].sort())
+  expect(allDependencies.get('nohoist')!.dependencies.sort()).toEqual(['hoist1', 'hoist2'].sort())
 });
 
 
