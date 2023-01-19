@@ -87,7 +87,7 @@ export function yarnWorkspaceInfo(cwd?: string): Workspace {
 }
 
 export function changedFiles(branch: string): string[] {
-  return run(`git diff --name-only ${branch}`).split("\n");
+  return run(`git diff --name-only ${branch}...`).split("\n");
 }
 
 export function filesInStaged(): string[] {
